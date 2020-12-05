@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Author: {{ author.first_name }} {{ author.last_name }}</h1>
+
+    <div style="margin-left:0px;margin-top:20px">
+        <h4>Books</h4>
+
+        {% for list_books in author.book_set.all %}
+            <hr>
+            <p><strong>Title:</strong> {{ list_books.title }}</p>
+            <p><strong>Genre:</strong> {{ list_books.display_genre }}</p>
+            <p><strong>Summary</strong> {{ list_books.summary }}</p>
+            <p class="text-muted"><strong>ISBN:</strong> {{ list_books.isbn }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

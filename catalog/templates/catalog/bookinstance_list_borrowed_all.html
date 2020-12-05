@@ -1,0 +1,42 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Borrowed All books</h1>
+
+    {% if perms.catalog.can_mark_returned %}
+
+        {% if bookinstance_list %}
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Libro</th>
+                    <th>Fecha entrega</th>
+                    <th>Prestado</th>
+                    <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for bookinst in bookinstance_list %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'book-detail' bookinst.book.pk %}">{{ bookinst.book.title }}</a>
+                        </td>
+                        <td>
+                            ({{ bookinst.due_back }})
+                        </td>
+                        <td> {{ bookinst.borrower }}</td>
+                        <td>
+                            <a href="{% url 'renew-book-librarian' bookinst.id %}">Renovar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>There are no books borrowed.</p>
+        {% endif %}
+    {% else %}
+        <p>You can not authorized to view all books borrowed.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Authors List</h1>
+
+    {% if author_list %}
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Autor</th>
+                <th>Libros</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for author in author_list %}
+                <tr>
+                    <td><a href="{{ author.get_absolute_url }}">{{ author.first_name }} {{ author.last_name }}</a></td>
+                    <td>   {{ author.book_set.count }}  </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>There are no author in the library.</p>
+    {% endif %}
+{% endblock %}

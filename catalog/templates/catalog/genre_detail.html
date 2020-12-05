@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Name: {{ genre.name }}</h1>
+
+    <div style="margin-left:0px;margin-top:20px">
+        <h4>Books finded: {{ genre.book_set.count }}</h4>
+        {% if genre.book_set.count > 0 %}
+            {% for list_books in genre.book_set.all %}
+                <hr>
+                <p><strong>Title:</strong> {{ list_books.title }}</p>
+                <p><strong>Genre:</strong> {{ list_books.display_genre }}</p>
+                <p><strong>Summary</strong> {{ list_books.summary }}</p>
+                <p class="text-muted"><strong>ISBN:</strong> {{ list_books.isbn }}</p>
+            {% endfor %}
+        {% else %}
+            <p>There are no Books with this Genre in the library.</p>
+        {% endif %}
+    </div>
+{% endblock %}
